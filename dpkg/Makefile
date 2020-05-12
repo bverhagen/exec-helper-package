@@ -5,13 +5,12 @@ MAINTAINER_EMAIL?=maintainer@exec-helper.xyz
 SOURCE_DIR:=../$(PROJECT_NAME)
 GIT_VERSION:=$(shell git -C $(SOURCE_DIR) describe --long "--match=*.*.*" 2>/dev/null || git -C $(SOURCE_DIR) -n1 --pretty=format:g%h)
 SOURCE_VERSION:=$(shell echo $(GIT_VERSION) | sed -E 's@([^-]*)-.*$$@\1@g')
-GIT_REVISION:=$(shell echo $(GIT_VERSION) | sed -E 's@[^-]*-([^-])*-.*$$@\1@g')
-DEBIAN_REVISION?=$(shell echo $$(($(GIT_REVISION)+1)))
+VERSION_IDENTIFIER?=-0.1
 GIT_COMMIT:=$(shell git -C $(SOURCE_DIR) log --format=%h -n1)
 
 YEAR:=$(shell date +'%Y')
 
-VERSION:=$(SOURCE_VERSION)-$(DEBIAN_REVISION)~git$(GIT_COMMIT)
+VERSION:=$(SOURCE_VERSION)$(VERSION_IDENTIFIER)~git$(GIT_COMMIT)
 SOURCE_CHANGES_FILE:=$(PROJECT_NAME)_$(VERSION)_source.changes
 
 DSC_FILE:=$(PROJECT_NAME)_$(VERSION).dsc
