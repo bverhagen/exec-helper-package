@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: exec-helper
-Upstream-Contact: bverhagen@gmail.com
+Upstream-Contact: barrie.verhagen@gmail.com
 Sources: https://github.com/bverhagen/exec-helper-package.git
 Comment: This is the Debian GNU/Linux prepackaged version of exec-helper. Enjoy
          your coffee!

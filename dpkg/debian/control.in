@@ -1,5 +1,5 @@
 Source: exec-helper
-Maintainer: bverhagen <barrie.verhagen@gmail.com>
+Maintainer: Bart Verhagen <barrie.verhagen@gmail.com>
 Section: misc
 Priority: optional
 Build-Depends: 
