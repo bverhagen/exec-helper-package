@@ -7,7 +7,6 @@ DISTRIBUTION?=DISTRIBUTION
 SYSTEM_DESCRIPTION?=SYSTEM_DESCRIPTION
 DEBIAN_ARCHIVE?=DEBIAN_ARCHIVE
 SOURCE_ARCHIVE?=SOURCE_ARCHIVE
-YEAR?=2018
 MAINTAINER?=maintainer
 MAINTAINER_EMAIL?=maintainer@exec-helper.xyz
 
@@ -30,8 +29,6 @@ CONTROL_IN:=debian/control.in
 
 RULES_FILE:=debian/rules
 RULES_IN:=debian/rules.in
-RULES_TEMP_TEMPLATE:=$(RULES_FILE).tmp
-RULES_TEMP:=$(shell mktemp --dry-run $(RULES_TEMP_TEMPLATE).XXX)
 
 # Determine the target architecture
 ARCHITECTURE:=$(shell $(CC) -dumpmachine | cut -d'-' -f1)
@@ -67,11 +64,7 @@ $(BUILD_DIR)/$(CONTROL_FILE): $(CONTROL_IN) $(BUILD_DIR)/$(COMPAT_FILE)
 
 $(BUILD_DIR)/$(RULES_FILE): $(RULES_IN) $(BUILD_DIR)/$(COMPAT_FILE)
 	@mkdir -p $(@D)
-	cp $(RULES_IN) $(BUILD_DIR)/$(RULES_TEMP)
-	sed -i "s#@SYSTEM_DESCRIPTION@#$(SYSTEM_DESCRIPTION)#g" $(BUILD_DIR)/$(RULES_TEMP)
-	sed -i "s/@VERSION@/$(VERSION)/g" $(BUILD_DIR)/$(RULES_TEMP)
-	sed -i "s/@YEAR@/$(YEAR)/g" $(BUILD_DIR)/$(RULES_TEMP)
-	mv $(BUILD_DIR)/$(RULES_TEMP) $(BUILD_DIR)/$(RULES_FILE)
+	cp $(RULES_IN) $(BUILD_DIR)/$(RULES_FILE)
 
 $(DEBIAN_ARCHIVE): $(BUILD_DIR)/$(CONTROL_FILE) $(BUILD_DIR)/$(CHANGELOG_FILE) $(BUILD_DIR)/$(RULES_FILE) $(BUILD_DIR)/$(COMPAT_FILE)
 	tar -c --directory $(BUILD_DIR) --exclude=$(CONTROL_FILE)_*.in --exclude=$(CHANGELOG_IN) -af build/$(DEBIAN_ARCHIVE) debian
