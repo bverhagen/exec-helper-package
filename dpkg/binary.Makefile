@@ -11,12 +11,11 @@ default: all
 $(PACKAGE_DIR):
 	mkdir -p $(PACKAGE_DIR)
 
-$(EXTRACT_DIR)/$(DEBIAN_FOLDER):
+$(BUILD_DIR)/$(DEBIAN_FOLDER):
 	dpkg-source -x $(SOURCE_PACKAGE) $(BUILD_DIR)
-	tar -C $(EXTRACT_DIR) -xf $(BUILD_DIR)/$(DEBIAN_ARCHIVE)
 
-$(BUILD_DIR)/$(CHANGES_FILE):: $(EXTRACT_DIR)/$(DEBIAN_FOLDER)
-	cd $(EXTRACT_DIR) && debuild -jauto $(DEBUILD_OPTS)
+$(BUILD_DIR)/$(CHANGES_FILE):: $(BUILD_DIR)/$(DEBIAN_FOLDER)
+	cd $(BUILD_DIR) && debuild -jauto $(DEBUILD_OPTS)
 
 build: $(BUILD_DIR)/$(CHANGES_FILE)
 	mkdir -p $(PACKAGE_DIR)
