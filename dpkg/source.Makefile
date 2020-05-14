@@ -6,6 +6,7 @@ SOURCE_ARCHIVE?=$(PROJECT_NAME)*.orig.tar.gz
 SOURCE_FILES?=CMakeLists.txt
 DSC_FILE?=*.dsc
 CHANGES_FILE?=*.changes
+DEBUILD_OPTS?=
 
 EXTRACT_DIR:=$(BUILD_DIR)/build
 
@@ -35,7 +36,7 @@ $(EXTRACT_DIR)/$(SOURCE_FILES):: $(BUILD_DIR)/$(SOURCE_ARCHIVE) $(EXTRACT_DIR)
 	tar -C $(EXTRACT_DIR) -xf $(BUILD_DIR)/$(SOURCE_ARCHIVE)
 
 $(BUILD_DIR)/$(CHANGES_FILE):: $(EXTRACT_DIR)/$(DEBIAN_FOLDER) $(EXTRACT_DIR)/$(SOURCE_FILES)
-	cd $(EXTRACT_DIR) && debuild -S -jauto
+	cd $(EXTRACT_DIR) && debuild -S -jauto $(DEBUILD_OPTS)
 
 source:: $(BUILD_DIR)/$(CHANGES_FILE) $(PACKAGE_DIR)
 	cd $(BUILD_DIR) && cp --reflink=auto $$(sed -n '/Files:/,$$p' $(DSC_FILE) | grep -E "\.dsc$$|\.tar.xz$$|\.tar.gz$$" | sed 's/.* //' | xargs) $(CURDIR)/$(PACKAGE_DIR)/
