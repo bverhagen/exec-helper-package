@@ -195,7 +195,7 @@ arch-linux:upload:
         - debconf-set-selections dpkg/debconf
         - *tzdata_fix
         - apt-get update
-        - apt-get install --assume-yes debhelper build-essential equivs devscripts sudo git lsb-release sed python3-pip cmake libboost-program-options-dev libboost-filesystem-dev libboost-log-dev libyaml-cpp-dev libmsgsl-dev doxygen graphviz pkg-config ${ADDITIONAL_BUILD_DEPENDENCIES}
+        - apt-get install --assume-yes debhelper build-essential equivs devscripts sudo git lsb-release sed python3-pip cmake libboost-program-options-dev libboost-filesystem-dev libboost-log-dev libyaml-cpp-dev libmsgsl-dev libluajit-5.1-dev doxygen graphviz pkg-config ${ADDITIONAL_BUILD_DEPENDENCIES}
         - *install_gitchangelog_debian
         - *enable_sudo_nobody
         - echo "Making targets = ${MAKE_TARGETS}"
@@ -215,7 +215,7 @@ arch-linux:upload:
         - debconf-set-selections dpkg/debconf
         - *tzdata_fix
         - apt-get update
-        - apt-get install --assume-yes debhelper build-essential equivs devscripts sudo git lsb-release sed python3-pip cmake libboost-program-options-dev libboost-filesystem-dev libboost-log-dev libyaml-cpp-dev libmsgsl-dev doxygen graphviz pkg-config ${ADDITIONAL_BUILD_DEPENDENCIES}
+        - apt-get install --assume-yes debhelper build-essential equivs devscripts sudo git lsb-release sed python3-pip cmake libboost-program-options-dev libboost-filesystem-dev libboost-log-dev libyaml-cpp-dev libmsgsl-dev libluajit-5.1-dev doxygen graphviz pkg-config ${ADDITIONAL_BUILD_DEPENDENCIES}
         - *install_gitchangelog_debian
         - *enable_sudo_nobody
         - echo "Making targets = ${MAKE_TARGETS}"
