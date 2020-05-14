@@ -11,10 +11,10 @@ RUN debconf-set-selections /tmp/debconf && rm /tmp/debconf
 RUN apt-get update
 
 # Install build dependencies
-RUN apt-get install --assume-yes git build-essential make cmake bison flex python3 python3-mako debhelper equivs devscripts sudo lsb-release sed libboost-program-options-dev libboost-filesystem-dev libboost-log-dev libyaml-cpp-dev libmsgsl-dev graphviz pkg-config curl
+RUN apt-get install --assume-yes git build-essential make cmake bison flex python3 python3-mako debhelper equivs devscripts lsb-release sed libboost-program-options-dev libboost-filesystem-dev libboost-log-dev libyaml-cpp-dev libmsgsl-dev graphviz pkg-config curl
 
 ## Install gitchangelog using the standalone installer
-RUN sudo sh -c 'curl -sSL https://raw.githubusercontent.com/vaab/gitchangelog/master/src/gitchangelog/gitchangelog.py > /usr/local/bin/gitchangelog' && sudo sh -c 'chmod +x /usr/local/bin/gitchangelog' && [ -f /usr/bin/python ] || ln -s python3 /usr/bin/python
+RUN curl -sSL https://raw.githubusercontent.com/vaab/gitchangelog/master/src/gitchangelog/gitchangelog.py > /usr/local/bin/gitchangelog && chmod +x /usr/local/bin/gitchangelog && [ -f /usr/bin/python ] || ln -s python3 /usr/bin/python
 
 ## Install Doxygen
 RUN git clone https://github.com/doxygen/doxygen.git && cd doxygen && git checkout Release_1_8_17 && cmake -H. -Bbuild && make -C build && make -C build install && cd ..
@@ -23,7 +23,7 @@ RUN git clone https://github.com/doxygen/doxygen.git && cd doxygen && git checko
 COPY . /exec-helper
 WORKDIR /exec-helper 
 RUN chmod a+w dpkg
-RUN sudo -u nobody make -C dpkg build
+RUN make -C dpkg binary
 
 
 # Install the package in a 'clean' environment
