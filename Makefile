@@ -2,7 +2,7 @@ CURDIR:=$(shell pwd)
 
 PREFIX?="$(CURDIR)/package"
 
-all: prepare
+all: source
 
 clean:
 	$(MAKE) --directory pkgbuild clean
@@ -30,11 +30,8 @@ prepare:
 source:
 	$(MAKE) find-distribution TARGET=source
 
-build:
-	$(MAKE) find-distribution TARGET=build
-
-build-test:
-	$(MAKE) find-distribution TARGET=build-test
+binary:
+	$(MAKE) find-distribution TARGET=binary
 
 install:
 	$(MAKE) find-distribution TARGET=install
